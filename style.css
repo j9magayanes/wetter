@@ -1,0 +1,170 @@
+@import url(https://db.onlinewebfonts.com/c/759e4a6bb4cd8bc8dc082ccc8386e8cc?family=Gotham+Condensed+Book);
+@font-face {
+  font-family: "Gotham Condensed Book";
+  src: url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot");
+  src: url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot?#iefix")format("embedded-opentype"),
+  url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff2")format("woff2"),
+  url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff")format("woff"),
+  url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.ttf")format("truetype"),
+  url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.svg#Gotham Condensed Bold")format("svg");
+}
+@font-face {
+  font-family: "Gotham Condensed Bold";
+  src: url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot");
+  src: url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot?#iefix") format("embedded-opentype"),
+       url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff2") format("woff2"),
+       url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff") format("woff"),
+       url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.ttf") format("truetype"),
+       url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.svg#Gotham Condensed Bold") format("svg");
+}
+
+svg {
+  background-color: #E5E5E5;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.grid line {stroke: rgb(135, 134, 134);stroke-opacity: 0.9;shape-rendering: crispEdges;}
+.grid path {stroke-width: 0;}
+
+.line {
+  fill: none;
+  /*stroke: #aaa;
+  stroke: #43484c;
+  stroke: #405275;
+  stroke: rgba(40, 53, 79, .95);
+  stroke: #161719;
+  stroke: #f99e1a;*/
+  stroke: #f89e35;
+  stroke-width: 2px;
+}
+
+.line2 {
+  fill: none;
+  stroke: #aaa;
+  stroke-width: 2px;
+}
+
+.line3 {
+  fill: none;
+  stroke: #77a8e7;
+  stroke-width: 2px;
+}
+.line4 {
+  fill: none;
+  stroke: #77a8e7;
+  stroke-width: 2px;
+}
+.line4-text {
+  fill: #bdc3d0;
+  stroke: #c5c5c6;
+}
+
+.line3-text {
+  fill: #bdc3d0;
+  stroke: #c5c5c6;
+}
+
+.line2-text {
+  fill: #aaa;
+  stroke: #aaa;
+}
+
+.line-text {
+  fill: #f89e35;
+  stroke: #f89e35;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  padding: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  background: #f99e1a;
+  border: 0px;
+  border-radius: 8px;
+}
+
+.tooltip p {
+  margin: 0;
+  padding: 0;
+}
+
+circle {
+  fill: rgba(40, 53, 79, .95);
+}
+
+g .tick {
+  color: #bdc3d0 !important;
+}
+
+#chart {
+  background-color: #E5E5E5;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  padding: 10px;
+  margin: auto;
+
+}
+
+#search {
+  background-color: #DD0000;
+  width: 240px;
+  height: 85.91px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#search-text {
+  font-size: 78.59px;
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 94.31px;
+  text-align: center;
+  font-family: "Gotham Condensed Bold";
+}
+
+#question {
+
+
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+#question-text {
+  font-size: 54.83px;
+  font-weight: 50;
+  line-height: 65.8px;
+  text-align: center;
+  font-family: "Gotham Condensed Book";
+}
+#today{
+  background-color: #DD0000;
+  width: 440px;
+  height: 85.91px;
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}
+
+#today-text {
+  font-size: 78.59px;
+  color: #ffffff;
+  font-weight: 700;
+  line-height: 94.31px;
+  text-align: center;
+  font-family: "Gotham Condensed Bold";
+}
+
+#domain {
+  stroke: none;
+}
