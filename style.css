@@ -24,9 +24,11 @@ svg {
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 600px;
 }
 .grid line {stroke: rgb(135, 134, 134);stroke-opacity: 0.9;shape-rendering: crispEdges;}
 .grid path {stroke-width: 0;}
+
 
 .line {
   fill: none;
@@ -36,13 +38,13 @@ svg {
   stroke: rgba(40, 53, 79, .95);
   stroke: #161719;
   stroke: #f99e1a;*/
-  stroke: #f89e35;
+  stroke: red;
   stroke-width: 2px;
 }
 
 .line2 {
   fill: none;
-  stroke: #aaa;
+  stroke: blue;
   stroke-width: 2px;
 }
 
@@ -57,8 +59,8 @@ svg {
   stroke-width: 2px;
 }
 .line4-text {
-  fill: #bdc3d0;
-  stroke: #c5c5c6;
+  fill: BLUE;
+  stroke: BLUE;
 }
 
 .line3-text {
@@ -67,13 +69,13 @@ svg {
 }
 
 .line2-text {
-  fill: #aaa;
-  stroke: #aaa;
+  fill: BLUE;
+  stroke: BLUE;
 }
 
 .line-text {
-  fill: #f89e35;
-  stroke: #f89e35;
+  fill: red;
+  stroke: red;
 }
 
 div.tooltip {
@@ -93,7 +95,7 @@ div.tooltip {
 }
 
 circle {
-  fill: rgba(40, 53, 79, .95);
+  fill: none;
 }
 
 g .tick {
@@ -106,6 +108,7 @@ g .tick {
   border-radius: 8px;
   padding: 10px;
   margin: auto;
+  height: 100%;
 
 }
 
