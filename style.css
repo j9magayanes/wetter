@@ -1,34 +1,49 @@
 @import url(https://db.onlinewebfonts.com/c/759e4a6bb4cd8bc8dc082ccc8386e8cc?family=Gotham+Condensed+Book);
 @font-face {
-  font-family: "Gotham Condensed Book";
-  src: url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot");
-  src: url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot?#iefix")format("embedded-opentype"),
-  url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff2")format("woff2"),
-  url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff")format("woff"),
-  url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.ttf")format("truetype"),
-  url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.svg#Gotham Condensed Bold")format("svg");
+  font-family: 'Gotham Condensed Book';
+  src: url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot');
+  src: url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff2')
+      format('woff2'),
+    url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff')
+      format('woff'),
+    url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.ttf')
+      format('truetype'),
+    url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.svg#Gotham Condensed Bold')
+      format('svg');
 }
 @font-face {
-  font-family: "Gotham Condensed Bold";
-  src: url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot");
-  src: url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot?#iefix") format("embedded-opentype"),
-       url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff2") format("woff2"),
-       url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff") format("woff"),
-       url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.ttf") format("truetype"),
-       url("https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.svg#Gotham Condensed Bold") format("svg");
+  font-family: 'Gotham Condensed Bold';
+  src: url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot');
+  src: url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff2')
+      format('woff2'),
+    url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.woff')
+      format('woff'),
+    url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.ttf')
+      format('truetype'),
+    url('https://db.onlinewebfonts.com/t/010b0c65ea7dee40153adf2034153db0.svg#Gotham Condensed Bold')
+      format('svg');
 }
 
 svg {
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
   margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 600px;
 }
-.grid line {stroke: rgb(135, 134, 134);stroke-opacity: 0.9;shape-rendering: crispEdges;}
-.grid path {stroke-width: 0;}
-
+.grid line {
+  stroke: rgb(135, 134, 134);
+  stroke-opacity: 0.9;
+  shape-rendering: crispEdges;
+}
+.grid path {
+  stroke-width: 0;
+}
 
 .line {
   fill: none;
@@ -103,17 +118,16 @@ g .tick {
 }
 
 #chart {
-  background-color: #E5E5E5;
+  background-color: #e5e5e5;
   border: 1px solid #aaa;
   border-radius: 8px;
   padding: 10px;
   margin: auto;
   height: 100%;
-
 }
 
 #search {
-  background-color: #DD0000;
+  background-color: #dd0000;
   width: 240px;
   height: 85.91px;
   padding: 5px;
@@ -128,12 +142,10 @@ g .tick {
   font-weight: 700;
   line-height: 94.31px;
   text-align: center;
-  font-family: "Gotham Condensed Bold";
+  font-family: 'Gotham Condensed Bold';
 }
 
 #question {
-
-
   padding: 5px;
   display: flex;
   justify-content: center;
@@ -146,10 +158,11 @@ g .tick {
   font-weight: 50;
   line-height: 65.8px;
   text-align: center;
-  font-family: "Gotham Condensed Book";
+  font-family: 'Gotham Condensed Book';
 }
-#today{
-  background-color: #DD0000;
+
+#today {
+  background-color: #dd0000;
   width: 440px;
   height: 85.91px;
   padding: 5px;
@@ -165,9 +178,13 @@ g .tick {
   font-weight: 700;
   line-height: 94.31px;
   text-align: center;
-  font-family: "Gotham Condensed Bold";
+  font-family: 'Gotham Condensed Bold';
 }
 
 #domain {
   stroke: none;
+}
+
+#search-bar {
+  display: flex;
 }
