@@ -65,7 +65,7 @@ svg {
 
 .line3 {
   fill: none;
-  stroke: #77a8e7;
+ color: #80CAFF;
   stroke-width: 2px;
 }
 .line4 {
@@ -93,13 +93,21 @@ svg {
   stroke: red;
 }
 
+.label-text {
+  font-family: 'Gotham Condensed Book';
+font-size: 40.21px;
+font-weight: 400;
+line-height: 48.25px;
+text-align: left;
+
+}
+
 div.tooltip {
   position: absolute;
   text-align: center;
   padding: 5px;
   font-size: 12px;
   font-weight: bold;
-  background: #f99e1a;
   border: 0px;
   border-radius: 8px;
 }
@@ -107,10 +115,26 @@ div.tooltip {
 .tooltip p {
   margin: 0;
   padding: 0;
+  font-family: 'Gotham Condensed Book';
+  font-weight: 400;
+  font-size: 36px;
+  line-height: 43.2px;
 }
 
-circle {
-  fill: none;
+.tooltip .highest {
+  color: #dd0000;
+}
+
+.tooltip .lowest {
+  color: blue;
+}
+
+.dot {
+  fill: red
+}
+
+.dot2 {
+  fill: blue
 }
 
 g .tick {
@@ -126,10 +150,8 @@ g .tick {
   height: 100%;
 }
 
-#search {
-  background-color: #dd0000;
-  width: 240px;
-  height: 85.91px;
+input #search  {
+
   padding: 5px;
   display: flex;
   justify-content: center;
@@ -138,10 +160,15 @@ g .tick {
 
 #search-text {
   font-size: 78.59px;
+  background-color: #dd0000;
+  width: 300px;
+  height: 85.91px;
+  border: #dd0000;
   color: #ffffff;
   font-weight: 700;
+  padding: 0 10px;
   line-height: 94.31px;
-  text-align: center;
+ 
   font-family: 'Gotham Condensed Bold';
 }
 
@@ -188,3 +215,4 @@ g .tick {
 #search-bar {
   display: flex;
 }
+

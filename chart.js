@@ -10,16 +10,16 @@ var y = d3.scaleLinear().range([height, 0]);
 // Define the line generator function
 function lineGenerator() {
   return d3.line().x(function (d) {
-    return x(d.year);
+    return x(d.day);
   });
 }
 
 // Define line generators for different datasets
 var valueline = lineGenerator().y(function (d) {
-  return y(d.GNI);
+  return y(d.maxMaxThisYear);
 });
 var valueline2 = lineGenerator().y(function (d) {
-  return y(d.PGDI);
+  return y(d.minMinThisYear);
 });
 
 // Create a tooltip div
@@ -74,78 +74,110 @@ d3.json('data.json', function (error, data) {
       dataline: valueline2,
     },
   ];
-  dataArray.forEach(function (dataItem) {
+
+  for (var i = 0; i < dataArray.length; i++) {
     svg
       .append('text')
-      .text(dataItem.name)
-      .attr('x', dataItem.x)
-      .attr('y', dataItem.y);
-
+      .text(dataArray[i].name)
+      .attr('x', dataArray[i].x)
+      .attr('y', dataArray[i].y)
+      .attr('class', "label-text")
     svg
       .append('rect')
-      .attr('x', dataItem.x - 70)
-      .attr('y', dataItem.y - 11)
+      .attr('x', dataArray[i].x - 70)
+      .attr('y', dataArray[i].y - 11)
       .attr('width', 50)
       .attr('height', 10)
-      .attr('class', dataItem.class);
-
+      .attr('class', dataArray[i].class);
     svg
       .append('path')
       .data([data])
-      .attr('class', dataItem.class2)
-      .attr('d', dataItem.dataline);
-  });
+      .attr('class', dataArray[i].class2)
+      .attr('d', dataArray[i].dataline);
+  }
 
-  // Add the dots with tooltips
-  var dots = svg
-    .selectAll('.dot')
+  // add the dots with tooltips
+  var fixeddot = svg
+    .selectAll('.dot2')
     .data(data)
     .enter()
     .append('circle')
-    .attr('class', 'dot')
-    .attr('r', 5)
+    .attr("class", "dot") 
+    .attr('r', 5);
+  var fixeddot2 = svg
+    .selectAll('.dot2')
+    .data(data)
+    .enter()
+    .append('circle')
+    .attr("class", "dot2") 
+    .attr('r', 5);
+
+
+  fixeddot
+    .attr('cx', function (d) {
+      return x(d.day);
+    })
+    .attr('cy', function (d) {
+      return y(d.maxMaxThisYear);
+    })
     .on('mouseover', function (d) {
       div.transition().duration(200).style('opacity', 0.9);
       div
-        .html('<p>년도:' + d.year + '</p> <p>GNI:' + d.maxMaxThisYear + '</p>')
+        .html(`<p class="highest"> <img src="./assets/temp_up.png"> ${d.maxMaxThisYear} </p>`)
         .style('left', d3.event.pageX + 'px')
         .style('top', d3.event.pageY - 28 + 'px');
     });
 
-  // Position dots based on data
-  dots
+  fixeddot2
     .attr('cx', function (d) {
-      return x(d.year);
+      return x(d.day);
     })
     .attr('cy', function (d) {
-      return y(d.GNI);
+      return y(d.minMinThisYear);
+    })
+    .on('mouseover', function (d) {
+      div.transition().duration(200).style('opacity', 0.9);
+      div
+        .html(`<p class="lowest"> <img src="./assets/temp_down.png">   ${d.minMinThisYear} </p>`)
+        .style('left', d3.event.pageX + 'px')
+        .style('top', d3.event.pageY - 28 + 'px');
     });
 
   // Add the X Axis
   svg
     .append('g')
     .attr('transform', 'translate(0,' + height + ')')
-    .style('stroke-dasharray', '1 10')
+    .style('stroke-dasharray', '2 2')
     .call(d3.axisBottom(x));
 
+
+
   // Add the Y Axis and grid lines
-  svg
+svg
     .append('g')
     .attr('class', 'grid')
     .call(d3.axisLeft(y).tickSize(-width).tickFormat(''));
 
+    var yscale = d3.scaleLinear() 
+            .domain([0, 100]) 
+            .range([height - 50, 0]); 
+    var y_axis = d3.axisRight(yscale); 
+     
+  
   svg
     .append('g')
-    .call(d3.axisLeft(y))
     .select('.domain')
-    .attr('stroke-width', 0);
+    .attr("transform", "translate(100,10)")
+    .attr('stroke-width', 0)
+    .call(y_axis)
+
 
   // Add the area
   svg
     .append('path')
     .datum(data)
-    .attr('fill', 'red')
-    .attr('fill-opacity', 0.3)
+    .attr('fill', '#EB0000')
+    .attr('fill-opacity', 0.25)
     .attr('stroke', 'none')
     .attr(
       'd',
@@ -162,7 +194,7 @@ d3.json('data.json', function (error, data) {
   svg
     .append('path')
     .datum(data)
-    .attr('fill', 'SKYBLUE')
+    .attr('fill', '#80CAFF')
     .attr('fill-opacity', 0.7)
     .attr('stroke', 'none')
     .attr(
