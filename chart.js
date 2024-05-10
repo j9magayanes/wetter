@@ -17,9 +17,10 @@ function lineGenerator() {
 // Define line generators for different datasets
 var valueline = lineGenerator().y(function (d) {
   return y(d.maxMaxThisYear);
+
 });
 var valueline2 = lineGenerator().y(function (d) {
-  return y(d.minMinThisYear);
+  return y(d.avgMax);
 });
 
 // Create a tooltip div
@@ -49,9 +50,9 @@ d3.json('data.json', function (error, data) {
     })
   );
   y.domain([
-    -15,
+    -10,
     d3.max(data, function (d) {
-      return Math.max(d.maxMaxThisYear, d.minMinThisYear);
+      return Math.max(d.maxMaxThisYear, d.avgMax);
     }),
   ]);
 
@@ -110,7 +111,7 @@ d3.json('data.json', function (error, data) {
     .enter()
     .append('circle')
     .attr("class", "dot2") 
-    .attr('r', 5);
+    .attr('r', 7);
 
 
   fixeddot
@@ -133,12 +134,12 @@ d3.json('data.json', function (error, data) {
       return x(d.day);
     })
     .attr('cy', function (d) {
-      return y(d.minMinThisYear);
+      return y(d.avgMax);
     })
     .on('mouseover', function (d) {
       div.transition().duration(200).style('opacity', 0.9);
       div
-        .html(`<p class="lowest"> <img src="./assets/temp_down.png">   ${d.minMinThisYear} </p>`)
+        .html(`<p class="lowest"> <img src="./assets/temp_down.png">   ${d.avgMax} </p>`)
         .style('left', d3.event.pageX + 'px')
         .style('top', d3.event.pageY - 28 + 'px');
     });
@@ -179,6 +180,7 @@ svg
     .attr('fill', '#EB0000')
     .attr('fill-opacity', 0.25)
     .attr('stroke', 'none')
+    .attr('class', "area")
     .attr(
       'd',
       d3
@@ -186,9 +188,15 @@ svg
         .x(function (d) {
           return x(d.day);
         })
-        .y0(height)
+        .y0(function (d) {
+          return y(d.avgMax  + 0.09);
+        })
         .y1(function (d) {
-          return y(d.maxMaxThisYear);
+          if (d.maxMaxThisYear > d.avgMax) {
+          return y(d.maxMaxThisYear+ 0.001 )
+          } else {
+            return y(d.avgMax - 0.1);
+          }
         })
     );
   svg
@@ -197,6 +205,7 @@ svg
     .attr('fill', '#80CAFF')
     .attr('fill-opacity', 0.7)
     .attr('stroke', 'none')
+    .attr('class', "area")
     .attr(
       'd',
       d3
@@ -206,7 +215,7 @@ svg
         })
         .y0(height)
         .y1(function (d) {
-          return y(d.minMinThisYear);
+          return y(d.avgMax - 0.1);
         })
     );
 });

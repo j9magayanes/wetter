@@ -54,13 +54,15 @@ svg {
   stroke: #161719;
   stroke: #f99e1a;*/
   stroke: red;
-  stroke-width: 2px;
+  stroke-width: 3.66px;
+  z-index: 1000;
 }
 
 .line2 {
   fill: none;
   stroke: blue;
   stroke-width: 2px;
+  stroke-width: 3.66px;
 }
 
 .line3 {
@@ -86,11 +88,14 @@ svg {
 .line2-text {
   fill: BLUE;
   stroke: BLUE;
+
 }
 
 .line-text {
   fill: red;
   stroke: red;
+  stroke-width: 4px;
+
 }
 
 .label-text {
@@ -130,11 +135,13 @@ div.tooltip {
 }
 
 .dot {
-  fill: red
+  fill: transparent;
+  z-index: 3;
 }
 
 .dot2 {
-  fill: blue
+  fill: transparent;
+  z-index: 3;
 }
 
 g .tick {
@@ -214,5 +221,9 @@ input #search  {
 
 #search-bar {
   display: flex;
+}
+
+#area {
+  z-index: 0;
 }
 
