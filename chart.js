@@ -17,7 +17,6 @@ function lineGenerator() {
 // Define line generators for different datasets
 var valueline = lineGenerator().y(function (d) {
   return y(d.maxMaxThisYear);
-
 });
 var valueline2 = lineGenerator().y(function (d) {
   return y(d.avgMax);
@@ -56,6 +55,52 @@ d3.json('data.json', function (error, data) {
     }),
   ]);
 
+  // Add the area
+  svg
+    .append('path')
+    .datum(data)
+    .attr('fill', '#EB0000')
+    .attr('fill-opacity', 0.25)
+    .attr('stroke', 'none')
+    .attr('class', 'area')
+    .attr(
+      'd',
+      d3
+        .area()
+        .x(function (d) {
+          return x(d.day);
+        })
+        .y0(function (d) {
+          return y(d.avgMax + 0.1);
+        })
+        .y1(function (d) {
+          if (d.maxMaxThisYear > d.avgMax) {
+            return y(d.maxMaxThisYear + 0.001);
+          } else {
+            return y(d.avgMax - 0.1);
+          }
+        })
+    );
+  svg
+    .append('path')
+    .datum(data)
+    .attr('fill', '#80CAFF')
+    .attr('fill-opacity', 0.7)
+    .attr('stroke', 'none')
+    .attr('class', 'area')
+    .attr(
+      'd',
+      d3
+        .area()
+        .x(function (d) {
+          return x(d.day);
+        })
+        .y0(height)
+        .y1(function (d) {
+          return y(d.avgMax - 0.1);
+        })
+    );
+
   // Add the valueline paths
   var dataArray = [
     {
@@ -82,7 +127,7 @@ d3.json('data.json', function (error, data) {
       .text(dataArray[i].name)
       .attr('x', dataArray[i].x)
       .attr('y', dataArray[i].y)
-      .attr('class', "label-text")
+      .attr('class', 'label-text');
     svg
       .append('rect')
       .attr('x', dataArray[i].x - 70)
@@ -103,16 +148,16 @@ d3.json('data.json', function (error, data) {
     .data(data)
     .enter()
     .append('circle')
-    .attr("class", "dot") 
+    .attr('class', 'dot')
     .attr('r', 5);
+    
   var fixeddot2 = svg
     .selectAll('.dot2')
     .data(data)
     .enter()
     .append('circle')
-    .attr("class", "dot2") 
+    .attr('class', 'dot2')
     .attr('r', 7);
-
 
   fixeddot
     .attr('cx', function (d) {
@@ -124,7 +169,9 @@ d3.json('data.json', function (error, data) {
     .on('mouseover', function (d) {
       div.transition().duration(200).style('opacity', 0.9);
       div
-        .html(`<p class="highest"> <img src="./assets/temp_up.png"> ${d.maxMaxThisYear} </p>`)
+        .html(
+          `<p class="highest"> <img src="./assets/temp_up.png"> ${d.maxMaxThisYear} </p>`
+        )
         .style('left', d3.event.pageX + 'px')
         .style('top', d3.event.pageY - 28 + 'px');
     });
@@ -139,7 +186,9 @@ d3.json('data.json', function (error, data) {
     .on('mouseover', function (d) {
       div.transition().duration(200).style('opacity', 0.9);
       div
-        .html(`<p class="lowest"> <img src="./assets/temp_down.png">   ${d.avgMax} </p>`)
+        .html(
+          `<p class="lowest"> <img src="./assets/temp_down.png">   ${d.avgMax} </p>`
+        )
         .style('left', d3.event.pageX + 'px')
         .style('top', d3.event.pageY - 28 + 'px');
     });
@@ -151,71 +200,22 @@ d3.json('data.json', function (error, data) {
     .style('stroke-dasharray', '2 2')
     .call(d3.axisBottom(x));
 
-
-
   // Add the Y Axis and grid lines
-svg
+  svg
     .append('g')
     .attr('class', 'grid')
     .call(d3.axisLeft(y).tickSize(-width).tickFormat(''));
 
-    var yscale = d3.scaleLinear() 
-            .domain([0, 100]) 
-            .range([height - 50, 0]); 
-    var y_axis = d3.axisRight(yscale); 
-     
-  
+  var yscale = d3
+    .scaleLinear()
+    .domain([0, 100])
+    .range([height - 50, 0]);
+  var y_axis = d3.axisRight(yscale);
+
   svg
     .append('g')
     .select('.domain')
-    .attr("transform", "translate(100,10)")
+    .attr('transform', 'translate(100,10)')
     .attr('stroke-width', 0)
-    .call(y_axis)
-
-
-  // Add the area
-  svg
-    .append('path')
-    .datum(data)
-    .attr('fill', '#EB0000')
-    .attr('fill-opacity', 0.25)
-    .attr('stroke', 'none')
-    .attr('class', "area")
-    .attr(
-      'd',
-      d3
-        .area()
-        .x(function (d) {
-          return x(d.day);
-        })
-        .y0(function (d) {
-          return y(d.avgMax  + 0.09);
-        })
-        .y1(function (d) {
-          if (d.maxMaxThisYear > d.avgMax) {
-          return y(d.maxMaxThisYear+ 0.001 )
-          } else {
-            return y(d.avgMax - 0.1);
-          }
-        })
-    );
-  svg
-    .append('path')
-    .datum(data)
-    .attr('fill', '#80CAFF')
-    .attr('fill-opacity', 0.7)
-    .attr('stroke', 'none')
-    .attr('class', "area")
-    .attr(
-      'd',
-      d3
-        .area()
-        .x(function (d) {
-          return x(d.day);
-        })
-        .y0(height)
-        .y1(function (d) {
-          return y(d.avgMax - 0.1);
-        })
-    );
+    .call(y_axis);
 });
