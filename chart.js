@@ -3,32 +3,6 @@ var margin = { top: 20, right: 20, bottom: 30, left: 50 };
 var width = 960 - margin.left - margin.right;
 var height = 500 - margin.top - margin.bottom;
 
-// Set the ranges
-var x = d3.scaleLinear().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
-
-// Define the line generator function
-function lineGenerator() {
-  return d3.line().x(function (d) {
-    return x(d.day);
-  });
-}
-
-// Define line generators for different datasets
-var valueline = lineGenerator().y(function (d) {
-  return y(d.maxMaxThisYear);
-});
-var valueline2 = lineGenerator().y(function (d) {
-  return y(d.avgMax);
-});
-
-// Create a tooltip div
-var div = d3
-  .select('#chart')
-  .append('div')
-  .attr('class', 'tooltip')
-  .style('opacity', 0);
-
 // Append the SVG object to the chart div
 var svg = d3
   .select('#chart')
@@ -38,19 +12,23 @@ var svg = d3
   .append('g')
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
-// Load data from CSV file
-d3.json('data.json', function (error, data) {
-  if (error) throw error;
+// Set the ranges
+var x = d3.scaleLinear().range([0, width]);
+var y = d3.scaleLinear().range([height, 0]);
 
+// Load data from CSV file
+d3.json('temp.json', function (error, data) {
+  if (error) throw error;
+  const newData = data.months[0].days;
   // Scale the range of the data
   x.domain(
-    d3.extent(data, function (d) {
+    d3.extent(newData, function (d) {
       return d.day;
     })
   );
   y.domain([
     -10,
-    d3.max(data, function (d) {
+    d3.max(newData, function (d) {
       return Math.max(d.maxMaxThisYear, d.avgMax);
     }),
   ]);
@@ -58,7 +36,7 @@ d3.json('data.json', function (error, data) {
   // Add the area
   svg
     .append('path')
-    .datum(data)
+    .datum(newData)
     .attr('fill', '#EB0000')
     .attr('fill-opacity', 0.25)
     .attr('stroke', 'none')
@@ -83,7 +61,7 @@ d3.json('data.json', function (error, data) {
     );
   svg
     .append('path')
-    .datum(data)
+    .datum(newData)
     .attr('fill', '#80CAFF')
     .attr('fill-opacity', 0.7)
     .attr('stroke', 'none')
@@ -100,6 +78,28 @@ d3.json('data.json', function (error, data) {
           return y(d.avgMax - 0.1);
         })
     );
+
+  // Define the line generator function
+  function lineGenerator() {
+    return d3.line().x(function (d) {
+      return x(d.day);
+    });
+  }
+
+  // Define line generators for different datasets
+  var valueline = lineGenerator().y(function (d) {
+    return y(d.maxMaxThisYear);
+  });
+  var valueline2 = lineGenerator().y(function (d) {
+    return y(d.avgMax);
+  });
+
+  // Create a tooltip div
+  var div = d3
+    .select('#chart')
+    .append('div')
+    .attr('class', 'tooltip')
+    .style('opacity', 0);
 
   // Add the valueline paths
   var dataArray = [
@@ -137,7 +137,7 @@ d3.json('data.json', function (error, data) {
       .attr('class', dataArray[i].class);
     svg
       .append('path')
-      .data([data])
+      .data([newData])
       .attr('class', dataArray[i].class2)
       .attr('d', dataArray[i].dataline);
   }
@@ -145,15 +145,15 @@ d3.json('data.json', function (error, data) {
   // add the dots with tooltips
   var fixeddot = svg
     .selectAll('.dot2')
-    .data(data)
+    .data(newData)
     .enter()
     .append('circle')
     .attr('class', 'dot')
     .attr('r', 5);
-    
+
   var fixeddot2 = svg
     .selectAll('.dot2')
-    .data(data)
+    .data(newData)
     .enter()
     .append('circle')
     .attr('class', 'dot2')
