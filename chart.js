@@ -19,11 +19,19 @@ var y = d3.scaleLinear().range([height, 0]);
 // Load data from CSV file
 d3.json('temp.json', function (error, data) {
   if (error) throw error;
-  const newData = data.months[0].days;
+  //const newData = data.months[0].days;
+  const allDays = [];
+  console.log(data.months.length);
+  data.months.forEach(eachMonth => {
+    allDays.push(...eachMonth.days);
+  });
+  console.log(allDays);
+   const newData = allDays;
   // Scale the range of the data
+  //  d3.axisBottom().scale(allDays.length);
   x.domain(
-    d3.extent(newData, function (d) {
-      return d.day;
+    d3.extent(newData, function (d, i) {
+      return i;
     })
   );
   y.domain([
@@ -45,8 +53,8 @@ d3.json('temp.json', function (error, data) {
       'd',
       d3
         .area()
-        .x(function (d) {
-          return x(d.day);
+        .x(function (d,i) {
+          return x(i);
         })
         .y0(function (d) {
           return y(d.avgMax + 0.1);
@@ -70,8 +78,8 @@ d3.json('temp.json', function (error, data) {
       'd',
       d3
         .area()
-        .x(function (d) {
-          return x(d.day);
+        .x(function (d,i) {
+          return x(i);
         })
         .y0(height)
         .y1(function (d) {
@@ -81,8 +89,8 @@ d3.json('temp.json', function (error, data) {
 
   // Define the line generator function
   function lineGenerator() {
-    return d3.line().x(function (d) {
-      return x(d.day);
+    return d3.line().x(function (d,i) {
+      return x(i);
     });
   }
 
@@ -160,8 +168,8 @@ d3.json('temp.json', function (error, data) {
     .attr('r', 7);
 
   fixeddot
-    .attr('cx', function (d) {
-      return x(d.day);
+    .attr('cx', function (d,i) {
+      return x(i);
     })
     .attr('cy', function (d) {
       return y(d.maxMaxThisYear);
@@ -177,8 +185,8 @@ d3.json('temp.json', function (error, data) {
     });
 
   fixeddot2
-    .attr('cx', function (d) {
-      return x(d.day);
+    .attr('cx', function (d,i) {
+      return x(i);
     })
     .attr('cy', function (d) {
       return y(d.avgMax);
@@ -199,6 +207,7 @@ d3.json('temp.json', function (error, data) {
     .attr('transform', 'translate(0,' + height + ')')
     .style('stroke-dasharray', '2 2')
     .call(d3.axisBottom(x));
+    
 
   // Add the Y Axis and grid lines
   svg
