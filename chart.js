@@ -5,10 +5,10 @@ var height = 500 - margin.top - margin.bottom;
 
 // Append the chart div
 var chartDiv = d3.select('#chart').append('div')
-    .style("width", 700 + margin.left + margin.right + "px") // Set width in CSS
-    .style("overflow-x", "scroll") // Enable horizontal scrolling
+    .style("width", 700 + margin.left + margin.right + "px")
+    .style("overflow-x", "scroll") 
     .style("margin", "0 auto") 
-    .style("-webkit-overflow-scrolling", "touch"); // Enable smooth scrolling for WebKit browsers
+    .style("-webkit-overflow-scrolling", "touch"); 
 
 // Append the SVG object to the chart div
 var svg = chartDiv.append('svg')
@@ -133,10 +133,10 @@ d3.json('temp.json', function (error, data) {
         .data(data.months)
         .enter()
         .append('text')
-        .text(function(d) { return "Month " + d.month; }) // Modify this to your actual month labels
+        .text(function(d) { return "Month " + d.month; })
         .attr('class', 'month-label')
-        .attr('x', function(d, i) { return x(i * 30); }) // Adjust the position based on your data
-        .attr('y', height + 20) // Adjust the position based on your preference
+        .attr('x', function(d, i) { return x(i * 30); }) 
+        .attr('y', height + 20) 
         .style('text-anchor', 'middle')
         .style('font-size', '12px');
 
