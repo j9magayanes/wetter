@@ -19,14 +19,12 @@ var y = d3.scaleLinear().range([height, 0]);
 // Load data from CSV file
 d3.json('temp.json', function (error, data) {
   if (error) throw error;
-  //const newData = data.months[0].days;
   const allDays = [];
-  console.log(data.months.length);
   data.months.forEach(eachMonth => {
     allDays.push(...eachMonth.days);
   });
-  console.log(allDays);
    const newData = allDays;
+
   // Scale the range of the data
   //  d3.axisBottom().scale(allDays.length);
   x.domain(
@@ -41,7 +39,7 @@ d3.json('temp.json', function (error, data) {
     }),
   ]);
 
-  // Add the area
+  // Add the red area
   svg
     .append('path')
     .datum(newData)
@@ -67,6 +65,7 @@ d3.json('temp.json', function (error, data) {
           }
         })
     );
+    // Add the blue area
   svg
     .append('path')
     .datum(newData)
@@ -206,8 +205,8 @@ d3.json('temp.json', function (error, data) {
     .append('g')
     .attr('transform', 'translate(0,' + height + ')')
     .style('stroke-dasharray', '2 2')
-    .call(d3.axisBottom(x));
-    
+    .call(d3.axisBottom(x).ticks(60));
+
 
   // Add the Y Axis and grid lines
   svg
