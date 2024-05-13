@@ -5,16 +5,14 @@ var height = 500 - margin.top - margin.bottom;
 
 // Append the chart div
 var chartDiv = d3.select('#chart').append('div')
- // Set position relative for correct positioning
-    .style("width", 700 + margin.left + margin.right + "px") // Set width in CSS // Set height in CSS
+    .style("width", 700 + margin.left + margin.right + "px") // Set width in CSS
     .style("overflow-x", "scroll") // Enable horizontal scrolling
     .style("margin", "0 auto") 
-    .style("-webkit-overflow-scrolling", "touch")// Enable smooth scrolling for WebKit browsers
-    
+    .style("-webkit-overflow-scrolling", "touch"); // Enable smooth scrolling for WebKit browsers
 
 // Append the SVG object to the chart div
 var svg = chartDiv.append('svg')
-    .attr('width', width)
+    .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
     .append('g')
     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
@@ -28,7 +26,7 @@ d3.json('temp.json', function (error, data) {
     if (error) throw error;
 
     const allDays = [];
-    data.months.forEach(eachMonth => {
+    data.months.forEach((eachMonth, i) => {
         allDays.push(...eachMonth.days);
     });
     const newData = allDays;
@@ -130,6 +128,18 @@ d3.json('temp.json', function (error, data) {
                .style('top', d3.event.pageY - 28 + 'px');
         });
 
+    // Month labels
+    var monthLabels = svg.selectAll('.month-label')
+        .data(data.months)
+        .enter()
+        .append('text')
+        .text(function(d) { return "Month " + d.month; }) // Modify this to your actual month labels
+        .attr('class', 'month-label')
+        .attr('x', function(d, i) { return x(i * 30); }) // Adjust the position based on your data
+        .attr('y', height + 20) // Adjust the position based on your preference
+        .style('text-anchor', 'middle')
+        .style('font-size', '12px');
+
     // Add the X Axis
     svg.append('g')
         .attr('transform', 'translate(0,' + height + ')')
@@ -150,5 +160,3 @@ d3.json('temp.json', function (error, data) {
         .attr('stroke-width', 0)
         .call(y_axis);
 });
-
-

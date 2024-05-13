@@ -168,12 +168,13 @@ input #search  {
 #search-text {
   font-size: 78.59px;
   background-color: #dd0000;
-  width: 300px;
+  width: 140px;
   height: 85.91px;
   border: #dd0000;
   color: #ffffff;
   font-weight: 700;
   padding: 0 10px;
+  padding: auto;
   line-height: 94.31px;
  
   font-family: 'Gotham Condensed Bold';
