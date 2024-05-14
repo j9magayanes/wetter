@@ -1,3 +1,6 @@
+const d = new Date();
+let month = d.getMonth() + 1;
+
 // Set the dimensions and margins of the graph
 var margin = { top: 20, right: 20, bottom: 30, left: 50 };
 var width = 7000 - margin.left - margin.right;
@@ -9,6 +12,7 @@ var chartDiv = d3.select('#chart').append('div')
     .style("overflow-x", "scroll") 
     .style("margin", "0 auto") 
     .style("-webkit-overflow-scrolling", "touch"); 
+
 
 // Append the SVG object to the chart div
 var svg = chartDiv.append('svg')
@@ -27,12 +31,16 @@ d3.json('temp.json', function (error, data) {
 
     const allDays = [];
     data.months.forEach((eachMonth, i) => {
+      if(  month - 3  <= eachMonth.month  &&   eachMonth.month <= month ) {
         allDays.push(...eachMonth.days);
+      }
     });
     const newData = allDays;
 
     // Scale the range of the data
-    x.domain(d3.extent(newData, function (d, i) { return i; }));
+    x.domain(d3.extent(newData, function (d, i) { 
+      console.log(typeof d.day)
+      return i; }));
     y.domain([-10, d3.max(newData, function (d) { return Math.max(d.maxMaxThisYear, d.avgMax); })]);
 
     // Add the red area
@@ -133,12 +141,18 @@ d3.json('temp.json', function (error, data) {
         .data(data.months)
         .enter()
         .append('text')
-        .text(function(d) { return "Month " + d.month; })
+        .text(function(d) { 
+                 // Define an array of month names
+        var monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
+        // Use the month number (1-indexed) to retrieve the corresponding month name
+        return monthNames[d.month - 1]; 
+        })
         .attr('class', 'month-label')
-        .attr('x', function(d, i) { return x(i * 30); }) 
-        .attr('y', height + 20) 
+        .attr('x', function(d, i) { return x((i * 45)); }) 
+        .attr('y', height + 40) 
         .style('text-anchor', 'middle')
-        .style('font-size', '12px');
+        .style('font-size', '18px')
+        .style('color',  'white');
 
     // Add the X Axis
     svg.append('g')
