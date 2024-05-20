@@ -67,7 +67,7 @@ svg {
 
 .line3 {
   fill: none;
- color: #80CAFF;
+  color: #80caff;
   stroke-width: 2px;
 }
 .line4 {
@@ -88,23 +88,20 @@ svg {
 .line2-text {
   fill: BLUE;
   stroke: BLUE;
-
 }
 
 .line-text {
   fill: red;
   stroke: red;
   stroke-width: 4px;
-
 }
 
 .label-text {
   font-family: 'Gotham Condensed Book';
-font-size: 40.21px;
-font-weight: 400;
-line-height: 48.25px;
-text-align: left;
-
+  font-size: 40.21px;
+  font-weight: 400;
+  line-height: 48.25px;
+  text-align: left;
 }
 
 div.tooltip {
@@ -155,10 +152,10 @@ g .tick {
   padding: 10px;
   margin: auto;
   height: 100%;
+  transform: translate(30px, 0);
 }
 
-input #search  {
-
+input #search {
   padding: 5px;
   display: flex;
   justify-content: center;
@@ -176,7 +173,7 @@ input #search  {
   padding: 0 10px;
   padding: auto;
   line-height: 94.31px;
- 
+
   font-family: 'Gotham Condensed Bold';
 }
 
@@ -228,3 +225,26 @@ input #search  {
   z-index: -1000;
 }
 
+.month-label {
+  font-family: 'Gotham Condensed Book';
+  font-size: 32px;
+  margin-top: 100px;
+}
+
+.num-axis {
+  font-family: 'Gotham Condensed Book';
+  font-size: 27px;
+}
+
+.x-axis path {
+  display: none;
+}
+
+.num-axis path.domain {
+  display: none;
+}
+
+.dots {
+  fill: white
+}
+ 
