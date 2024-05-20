@@ -2,7 +2,7 @@ const d = new Date();
 let month = d.getMonth() + 1;
 
 // Set the dimensions and margins of the graph
-var margin = { top: 20, right: 20, bottom: 30, left: 50 };
+var margin = { top: 20, right: 50, bottom: 30, left: 50 }; // Adjust right margin to fit y-axis
 var width = 3800 - margin.left - margin.right;
 var height = 500 - margin.top - margin.bottom;
 
@@ -13,7 +13,6 @@ var chartDiv = d3
   .style('width', 700 + margin.left + margin.right + 'px')
   .style('overflow-x', 'scroll')
   .style('margin', '0 auto')
-
   .style('-webkit-overflow-scrolling', 'touch');
 
 // Append the SVG object to the chart div
@@ -26,6 +25,8 @@ var svg = chartDiv
   .style('justify-content', 'flex-end')
   .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+
+
 // Set the ranges
 var x = d3.scaleLinear().range([0, width]);
 var y = d3.scaleLinear().range([height, 0]);
@@ -37,7 +38,6 @@ d3.json('temp.json', function (error, data) {
   const allDays = [];
   data.months.forEach((eachMonth, i) => {
     if (month - 4 <= eachMonth.month && eachMonth.month <= month) {
-      console.log(i);
       allDays.push(...eachMonth.days);
     }
   });
@@ -181,7 +181,6 @@ d3.json('temp.json', function (error, data) {
     })
     .on('mouseover', function (d) {
       if (typeof d.maxMaxThisYear === 'number') {
-        console.log(typeof d.maxMaxThisYear);
         div.transition().duration(200).style('opacity', 0.9);
         div
           .html(
@@ -289,13 +288,11 @@ d3.json('temp.json', function (error, data) {
     .attr('class', 'num-axis x-axis')
     .call(d3.axisBottom(x).ticks(30))
     .call((g) => {
-      g.selectAll('line') 
-      .attr('stroke', 'none') // Hide tick lines
-      g.selectAll('text') 
-      .attr('fill', 'white') 
+      g.selectAll('line')
+        .attr('stroke', 'none') // Hide tick lines
+      g.selectAll('text')
+        .attr('fill', 'white')
     });
-  
-   
 
   // Add the Y Axis and grid lines
   svg
@@ -303,18 +300,22 @@ d3.json('temp.json', function (error, data) {
     .attr('class', 'grid')
     .call(d3.axisLeft(y).tickSize(-width).tickFormat(''));
 
-  var yscale = d3
-    .scaleLinear()
-    .domain([0, 100])
-    .range([height - 50, 0]);
-  var y_axis = d3.axisRight(yscale).ticks(1);
-
+  // Add the right Y Axis
   svg
-    .append('g')
-    .select('.domain')
-    .attr('transform', 'translate(100,10)')
-    .attr('stroke-width', 0)
-    .call(y_axis);
+  .append('g')
+  .attr('transform', 'translate(' + width + ', 0)')
+  .attr('class', 'y-axis-right')
+  .call(d3.axisRight(y).ticks(10))
+  .call((g) => {
+    g.selectAll('line')
+      .attr('stroke', 'none');
+    g.selectAll('text')
+      .attr('fill', 'gray')
+      .style('font-family', 'Gotham Condensed Book')
+      .style('font-size', '27px');
+  })
+  .style('position', 'absolute')
+  .style('right', '0');
 
-    chartDiv.node().scrollLeft = chartDiv.node().scrollWidth - chartDiv.node().clientWidth;
+  chartDiv.node().scrollLeft = chartDiv.node().scrollWidth - chartDiv.node().clientWidth;
 });

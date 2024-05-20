@@ -213,7 +213,7 @@ input #search {
   font-family: 'Gotham Condensed Bold';
 }
 
-#domain {
+.domain {
   stroke: none;
 }
 
