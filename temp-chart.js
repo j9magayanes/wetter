@@ -151,7 +151,7 @@ function tempChart({ element, data }) {
           .attr("width", marginRight - dayDotSize)
       );
 
-    const ticks = y.ticks((height - marginTop - marginBottom) / 40);
+    const ticks = y.ticks((height - marginTop - marginBottom) / 32);
 
     g.selectAll(".tick")
       .data(ticks)
