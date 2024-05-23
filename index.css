@@ -61,7 +61,7 @@ body {
 }
 
 .card {
-  --max-width: 480px;
+  --max-width: 1000px;
   --clr-background: var(--clr-gray-light);
   width: min(var(--max-width), 100vw);
   background-color: var(--clr-background);

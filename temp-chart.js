@@ -1,7 +1,7 @@
 function tempChart({ element, data }) {
   let noScrollWidth, scrollWidth, delaunay, tooltipDatumIndex;
 
-  const height = 300;
+  const height = 360;
   const focusDotSize = 4;
   const lineStrokeWidth = 2;
   const dayDotSize = 2;
