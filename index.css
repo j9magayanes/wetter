@@ -64,7 +64,6 @@ body {
   width: min(var(--max-width), 100vw);
   background-color: var(--clr-background);
   font-size: var(--fs-base);
-  margin-inline: auto;
 }
 
 .card-body {
