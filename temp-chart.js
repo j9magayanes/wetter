@@ -148,7 +148,7 @@ function tempChart({ element, data }) {
           .attr("class", "bg-rect")
           .attr("height", height)
           .attr("x", dayDotSize)
-          .attr("width", marginRight - dayDotSize)
+          .attr("width", marginRight - dayDotSize + 1)
       );
 
     const ticks = y.ticks((height - marginTop - marginBottom) / 32);
