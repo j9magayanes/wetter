@@ -15,6 +15,7 @@ function tempChart({ element, data }) {
   const marginRight = 20;
   const marginBottom = monthLabelsOffset + monthLabelsHeight / 2;
   const marginLeft = focusDotSize;
+  const thresholds = [400, 640];
 
   const xAccessor = (d) => d.date;
   const y1Accessor = (d) =>
@@ -26,7 +27,6 @@ function tempChart({ element, data }) {
   }).format;
 
   const { groupedData, flattenedData, pointsData } = processData(data);
-  const lastMonthDays = groupedData[groupedData.length - 1].days.length;
   const totalDays = flattenedData.length;
 
   const monthNames = [
@@ -101,12 +101,12 @@ function tempChart({ element, data }) {
 
   function resized(rect) {
     noScrollWidth = rect.width;
+    const boundedWidth =
+      rect.width - marginRight - dayLabelsHeight / 2 + marginLeft;
+    const months = d3.bisect(thresholds, boundedWidth) + 1;
+    const days = d3.sum(groupedData.slice(-months), (d) => d.days.length);
     scrollWidth =
-      ((rect.width - marginRight - dayLabelsHeight / 2 + marginLeft) /
-        (lastMonthDays - 1)) *
-        (totalDays - 1) +
-      marginLeft +
-      marginRight;
+      (boundedWidth / (days - 1)) * (totalDays - 1) + marginLeft + marginRight;
 
     x.range([marginLeft, scrollWidth - marginRight]);
 
