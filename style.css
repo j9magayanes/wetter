@@ -28,14 +28,14 @@
       format('svg');
 }
 
-svg {
+/* svg {
   background-color: #e5e5e5;
   margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 600px;
-}
+} */
 .grid line {
   stroke: rgb(135, 134, 134);
   stroke-opacity: 0.9;
@@ -152,7 +152,7 @@ g .tick {
   padding: 10px;
   margin: auto;
   height: 100%;
-  transform: translate(30px, 0);
+  /* transform: translate(30px, 0); */
 }
 
 input #search {
