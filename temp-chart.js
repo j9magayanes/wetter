@@ -1,5 +1,12 @@
 function tempChart({ element, data }) {
-  let noScrollWidth, scrollWidth, delaunay, tooltipDatumIndex;
+  let noScrollWidth,
+    scrollWidth,
+    delaunay,
+    tooltipDatumIndex,
+    groupedData,
+    flattenedData,
+    pointsData,
+    totalDays;
 
   const height = 240;
   const focusDotSize = 4;
@@ -26,9 +33,6 @@ function tempChart({ element, data }) {
     maximumFractionDigits: 1,
   }).format;
 
-  const { groupedData, flattenedData, pointsData } = processData(data);
-  const totalDays = flattenedData.length;
-
   const monthNames = [
     "Januar",
     "Februar",
@@ -44,24 +48,8 @@ function tempChart({ element, data }) {
     "Dezember",
   ];
 
-  const x = d3.scaleUtc().domain(d3.extent(flattenedData, xAccessor));
-  const y = d3
-    .scaleLinear()
-    .domain(getYExtent())
-    .range([height - marginBottom, marginTop])
-    .nice();
-  function getYExtent() {
-    let yMin = d3.min(flattenedData, (d) =>
-      d3.min([y1Accessor(d), y2Accessor(d)])
-    );
-    let yMax = d3.max(flattenedData, (d) =>
-      d3.max([y1Accessor(d), y2Accessor(d)])
-    );
-    const padding = (yMax - yMin) * 0.1;
-    yMin -= padding;
-    yMax += padding;
-    return [yMin, yMax];
-  }
+  const x = d3.scaleUtc();
+  const y = d3.scaleLinear().range([height - marginBottom, marginTop]);
 
   const areaGenerator = d3
     .area()
@@ -93,16 +81,39 @@ function tempChart({ element, data }) {
   renderSwatches();
   const tooltip = container.append("div").attr("class", "tip");
 
-  new ResizeObserver((entries) =>
-    entries.forEach((entry) => {
-      resized(entry.contentRect);
-    })
-  ).observe(scrollContainer.node());
+  wrangle();
 
-  function resized(rect) {
-    noScrollWidth = rect.width;
+  new ResizeObserver(resized).observe(scrollContainer.node());
+
+  function wrangle() {
+    ({ groupedData, flattenedData, pointsData } = processData(data));
+    totalDays = flattenedData.length;
+
+    x.domain(d3.extent(flattenedData, xAccessor));
+    y.domain(getYExtent()).nice();
+    function getYExtent() {
+      let yMin = d3.min(flattenedData, (d) =>
+        d3.min([y1Accessor(d), y2Accessor(d)])
+      );
+      let yMax = d3.max(flattenedData, (d) =>
+        d3.max([y1Accessor(d), y2Accessor(d)])
+      );
+      const padding = (yMax - yMin) * 0.1;
+      yMin -= padding;
+      yMax += padding;
+      return [yMin, yMax];
+    }
+
+    if (!!noScrollWidth) resized();
+  }
+
+  function resized() {
+    noScrollWidth = scrollContainer.node().clientWidth;
     const boundedWidth =
-      rect.width - marginRight - dayLabelsHeight / 2 + marginLeft;
+      scrollContainer.node().clientWidth -
+      marginRight -
+      dayLabelsHeight / 2 +
+      marginLeft;
     const months = d3.bisect(thresholds, boundedWidth) + 1;
     const days = d3.sum(groupedData.slice(-months), (d) => d.days.length);
     scrollWidth =
@@ -462,4 +473,13 @@ function tempChart({ element, data }) {
     ];
     return { groupedData, flattenedData, pointsData };
   }
+
+  function update(_) {
+    data = _;
+    wrangle();
+  }
+
+  return {
+    update,
+  };
 }
